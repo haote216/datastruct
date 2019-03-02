@@ -369,3 +369,28 @@ struct ListNode *detectCycle(struct ListNode *head) {
 	else
 		return NULL;
 }
+//leetcode编译通过的代码
+struct ListNode *detectCycle(struct ListNode *head) {
+	if (!head || !head->next || !head->next) {
+		return NULL;
+	}
+	struct ListNode *slow = head->next;
+	struct ListNode *fast = head->next->next;
+	while (fast&&fast->next) {
+		if (slow == fast) {
+			break;
+		}
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+	if (!fast || !fast->next) {
+		return NULL;
+	}
+	fast = head;
+	while (fast != slow) {
+		slow = slow->next;
+		fast = fast->next;
+	}
+	return fast;
+}
+
